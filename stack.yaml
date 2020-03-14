@@ -1,0 +1,8 @@
+# When changing the resolver, also update shell.nix accordingly!
+resolver: lts-14.27
+packages:
+- .
+extra-deps: []
+
+nix:
+  shell-file: shell.nix
