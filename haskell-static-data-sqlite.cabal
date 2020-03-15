@@ -20,8 +20,23 @@ executable exe
   default-language: Haskell2010
   hs-source-dirs: app
   main-is: Main.hs
+  c-sources:
+    -- Copied from https://sqlite.org/src/file/ext/misc/appendvfs.c
+    cbits/appendvfs.c
+  cc-options:
+    -- We need to set either `-DSQLITE_OMIT_LOAD_EXTENSION` or `-DSQLITE_CORE`
+    -- (see `sqlite3ext.h`; it is not clear yet which one is more correct
+    -- or whether it is intended by sqlite authors that these are needed)
+    -- when compiling `appendvfs.c` separate from the `sqlite.c` amalgamation
+    -- to ensure `sqlite3_vfs_find()` does not segfault at first call.
+    -DSQLITE_OMIT_LOAD_EXTENSION
+    -- For better debugging with gdb
+    -g
   build-depends:
       base
+    , direct-sqlite >= 2.3.24
+    , sqlite-simple >= 0.4.16.0
+    , text
   ghc-options:
     -Wall -threaded -rtsopts -with-rtsopts=-N
 
