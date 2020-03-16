@@ -40,6 +40,15 @@ Database contents:
 ```
 
 
+## How the `sqlite3` executable uses it
+
+* [`#include appendvfs.c`](https://github.com/sqlite/sqlite/blob/14c98a4f4016bb60679535e3d2d9fe6c49bfe04a/src/shell.c.in#L994)
+* Calling [`sqlite3_appendvfs_init(0,0,0)`](https://github.com/sqlite/sqlite/blob/14c98a4f4016bb60679535e3d2d9fe6c49bfe04a/src/shell.c.in#L10542)
+* Documenting the [`--append FILE`](https://github.com/sqlite/sqlite/blob/14c98a4f4016bb60679535e3d2d9fe6c49bfe04a/src/shell.c.in#L3530) switch
+* Passing the [`apndvfs`](https://github.com/sqlite/sqlite/blob/14c98a4f4016bb60679535e3d2d9fe6c49bfe04a/src/shell.c.in#L4200-L4202) open flag to `sqlite3_open_v2()`
+  * You can also use the older `sqlite3_open()` with `?vfs=apndvfs` if `SQLITE_USE_URI` is enabled (it is enabled by default; [docs](https://www.sqlite.org/uri.html))
+
+
 ## Alternative approaches and comparison
 
 There are other ways how you can include static data into your executables:
