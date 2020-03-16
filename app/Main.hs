@@ -13,7 +13,8 @@ import           System.Environment (getExecutablePath)
 
 -- | No need for exact type signature, we call it as
 -- > sqlite3_appendvfs_init(0,0,0);
--- only, just like the sqlite3 binary (`shell.c.in`) does.
+-- only, just like the sqlite3 binary (`shell.c.in`) does
+-- (in C you can pass `0` instead of NULL for pointers).
 foreign import ccall "sqlite3_appendvfs_init"
   sqlite3_appendvfs_init :: Ptr () -> Ptr () -> Ptr () -> IO CError
 
