@@ -59,6 +59,7 @@ There are other ways how you can include static data into your executables:
   * can be not-so-fast at run-time because data structures (such as `Map`s) have to be re-parsed/deserialised from the ByteStrings (at startup)
   * changing the data requires recompilation
   * Use of TemplateHaskell can trigger [The `TH` recompilation problem](https://gist.github.com/nh2/14e653bcbdc7f40042da3755539e554a)
+  * alternatively, you can avoid recompilation if the amont of Bytes to embed is constant, using [`dummySpace` and `injectFile`](https://hackage.haskell.org/package/file-embed-0.0.11.2/docs/Data-FileEmbed.html#g:3)
 * At link time using a custom assembly script
   * Shown in Sylvain Henry's blog post ["Fast file embedding with GHC!"](https://hsyl20.fr/home/posts/2019-01-15-fast-file-embedding-with-ghc.html)
   * fast at compile-time
